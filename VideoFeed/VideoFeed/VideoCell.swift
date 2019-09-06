@@ -14,7 +14,7 @@ class VideoCell : ASCellNode {
     
     private var review: Review?
     
-    private var videoNode : VideoNode!
+    var videoNode : VideoNode!
     private var actionNode : ActionNode!
     private var infoNode : InfoNode!
     
@@ -32,7 +32,7 @@ class VideoCell : ASCellNode {
 
 extension VideoCell {
     override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
-        let insets = UIEdgeInsets(top: CGFloat.infinity, left: 0, bottom: 0, right: 0)
+        let insets = UIEdgeInsets(top: CGFloat.infinity, left: 0, bottom: 32, right: 0)
         let insetsSpec = ASInsetLayoutSpec(insets: insets, child: infoNode)
         let overlaySpec = ASOverlayLayoutSpec(child: videoNode, overlay: insetsSpec)
         let fullStack = ASStackLayoutSpec(direction: .vertical, spacing: 0, justifyContent: .spaceBetween, alignItems: .stretch, children: [overlaySpec, actionNode])

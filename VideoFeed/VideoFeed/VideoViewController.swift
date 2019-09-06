@@ -26,6 +26,41 @@ class VideoViewController: UIViewController {
             Tag(name: "Hiepdeptrai"),
             Tag(name: "Hiepdethuong"),
             Tag(name: "Hieptaiba")
+            ], likeCount: "123", commentCount: "123", starCount: "123"),
+        Review(videoUrl: "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4", placeholderUrl: "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/images/ForBiggerBlazes.jpg", title: "For Bigger Blazes", body: "By Google", user: User(avatarUrl: "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1100&q=80", name: "Hieu Hiep Nguyen", level: "Lv5"), tags: [
+            Tag(name: "Hiepdeptrai"),
+            Tag(name: "Hiepdethuong"),
+            Tag(name: "Hieptaiba")
+            ], likeCount: "123", commentCount: "123", starCount: "123"),
+        Review(videoUrl: "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4", placeholderUrl: "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/images/ForBiggerBlazes.jpg", title: "For Bigger Blazes", body: "By Google", user: User(avatarUrl: "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1100&q=80", name: "Hieu Hiep Nguyen", level: "Lv5"), tags: [
+            Tag(name: "Hiepdeptrai"),
+            Tag(name: "Hiepdethuong"),
+            Tag(name: "Hieptaiba")
+            ], likeCount: "123", commentCount: "123", starCount: "123"),
+        Review(videoUrl: "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4", placeholderUrl: "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/images/ForBiggerBlazes.jpg", title: "For Bigger Blazes", body: "By Google", user: User(avatarUrl: "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1100&q=80", name: "Hieu Hiep Nguyen", level: "Lv5"), tags: [
+            Tag(name: "Hiepdeptrai"),
+            Tag(name: "Hiepdethuong"),
+            Tag(name: "Hieptaiba")
+            ], likeCount: "123", commentCount: "123", starCount: "123"),
+        Review(videoUrl: "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4", placeholderUrl: "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/images/ForBiggerBlazes.jpg", title: "For Bigger Blazes", body: "By Google", user: User(avatarUrl: "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1100&q=80", name: "Hieu Hiep Nguyen", level: "Lv5"), tags: [
+            Tag(name: "Hiepdeptrai"),
+            Tag(name: "Hiepdethuong"),
+            Tag(name: "Hieptaiba")
+            ], likeCount: "123", commentCount: "123", starCount: "123"),
+        Review(videoUrl: "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4", placeholderUrl: "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/images/ForBiggerBlazes.jpg", title: "For Bigger Blazes", body: "By Google", user: User(avatarUrl: "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1100&q=80", name: "Hieu Hiep Nguyen", level: "Lv5"), tags: [
+            Tag(name: "Hiepdeptrai"),
+            Tag(name: "Hiepdethuong"),
+            Tag(name: "Hieptaiba")
+            ], likeCount: "123", commentCount: "123", starCount: "123"),
+        Review(videoUrl: "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4", placeholderUrl: "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/images/ForBiggerBlazes.jpg", title: "For Bigger Blazes", body: "By Google", user: User(avatarUrl: "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1100&q=80", name: "Hieu Hiep Nguyen", level: "Lv5"), tags: [
+            Tag(name: "Hiepdeptrai"),
+            Tag(name: "Hiepdethuong"),
+            Tag(name: "Hieptaiba")
+            ], likeCount: "123", commentCount: "123", starCount: "123"),
+        Review(videoUrl: "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4", placeholderUrl: "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/images/ForBiggerBlazes.jpg", title: "For Bigger Blazes", body: "By Google", user: User(avatarUrl: "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1100&q=80", name: "Hieu Hiep Nguyen", level: "Lv5"), tags: [
+            Tag(name: "Hiepdeptrai"),
+            Tag(name: "Hiepdethuong"),
+            Tag(name: "Hieptaiba")
             ], likeCount: "123", commentCount: "123", starCount: "123")
     ]
     
@@ -62,7 +97,34 @@ class VideoViewController: UIViewController {
         collectionNode.delegate = self
         collectionNode.dataSource = self
         
-        self.collectionNode.view.isPagingEnabled = true        
+        self.collectionNode.view.isPagingEnabled = true
+        
+        (self.collectionNode.nodeForItem(at: IndexPath(item: 0, section: 0)) as? VideoCell)?.videoNode.videoNode.play()
+    }
+    
+    private func checkVisibleNodes() {
+        for node in collectionNode.visibleNodes {
+            guard
+                let videoCell = node as? VideoCell,
+                let indexPath = collectionNode.indexPath(for: videoCell),
+                let cellRect = collectionNode.view.layoutAttributesForItem(at: indexPath)
+                else {
+                    (node as? VideoCell)?.videoNode.videoNode.pause()
+                    return
+            }
+            
+            let superView = collectionNode.supernode
+            
+            let convertedRect = collectionNode.convert(cellRect.frame, to: superView)
+            let intersect = collectionNode.frame.intersection(convertedRect)
+            let visibleHeight = intersect.height
+            
+            if visibleHeight == UIScreen.main.bounds.size.height {
+                videoCell.videoNode.videoNode.play()
+            } else {
+                videoCell.videoNode.videoNode.pause()
+            }
+        }
     }
 }
 
@@ -103,5 +165,17 @@ extension VideoViewController : ASCollectionDelegateFlowLayout, UICollectionView
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
         return 0
     }
+    
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        checkVisibleNodes()
+    }
+
+    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+        if decelerate {
+            checkVisibleNodes()
+        }
+    }
+    
 }
+
 
