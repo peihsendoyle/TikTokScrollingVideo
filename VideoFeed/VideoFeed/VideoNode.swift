@@ -12,9 +12,15 @@ class VideoNode : ASDisplayNode {
     
     private var review: Review?
     
+    public enum Direction {
+        case forward
+        case backward
+    }
+    
+    private var isSeekInProgress = false
+    private var chaseTime = CMTime.zero
+    private var preferredFrameRate: Float = 23.98
     private var observer : Any?
-    private var mRestoreAfterScrubbingRate : Float = 0
-    private var isSeeking = false
     
     private let toggleButtonNode : ASButtonNode = {
         let node = ASButtonNode()
@@ -120,13 +126,7 @@ extension VideoNode {
             (self.sliderNode.view as? UISlider)?.minimumTrackTintColor = UIColor(red: 255/255, green: 102/255, blue: 0/255, alpha: 1.0)
             (self.sliderNode.view as? UISlider)?.tintColor = UIColor(red: 255/255, green: 102/255, blue: 0/255, alpha: 1)
             (self.sliderNode.view as? UISlider)?.setThumbImage(UIImage(named: "thumb")?.withRenderingMode(.alwaysTemplate), for: .normal)
-            
-            (self.sliderNode.view as? UISlider)?.addTarget(self, action: #selector(self.endScrubbing), for: .touchCancel)
-            (self.sliderNode.view as? UISlider)?.addTarget(self, action: #selector(self.beginScrubbing), for: .touchDown)
-            (self.sliderNode.view as? UISlider)?.addTarget(self, action: #selector(self.scrub), for: .touchDragInside)
-            (self.sliderNode.view as? UISlider)?.addTarget(self, action: #selector(self.endScrubbing), for: .touchUpInside)
-            (self.sliderNode.view as? UISlider)?.addTarget(self, action: #selector(self.endScrubbing), for: .touchUpOutside)
-            (self.sliderNode.view as? UISlider)?.addTarget(self, action: #selector(self.scrub), for: .valueChanged)
+            (self.sliderNode.view as? UISlider)?.addTarget(self, action: #selector(self.sliderValueChanged), for: .valueChanged)
         }
     }
     
@@ -135,108 +135,67 @@ extension VideoNode {
         videoNode.play()
     }
     
-    private func removePlayerTimeObserver() {
-        observer = nil
-    }
-    
-    func initScrubberTimer() {
-        var interval: Double = 0.1
-        guard let playerDuration = videoNode.currentItem?.duration else { return }
-        guard let width = (sliderNode.view as? UISlider)?.bounds.width else { return }
-        if CMTIME_IS_INVALID(playerDuration) { return }
+    @objc private func sliderValueChanged() {
+        if videoNode.isPlaying() { videoNode.player?.pause() }
         
-        let duration: Double = CMTimeGetSeconds(playerDuration)
-        if duration.isFinite { interval = 0.5 * duration / Double(width) }
-        /* Update the scrubber during normal playback. */
-        weak var weakSelf = self
-        observer = videoNode.player?.addPeriodicTimeObserver(forInterval: CMTimeMakeWithSeconds(interval, preferredTimescale: Int32(NSEC_PER_SEC)), queue: nil, using: {(time: CMTime) -> Void in
-            weakSelf?.syncScrubber()
-        }) as AnyObject?
+        guard var timeToSeek = videoNode.player?.currentItem?.duration.seconds else { return }
+        timeToSeek = timeToSeek * Double((sliderNode.view as? UISlider)?.value ?? 0.0)
+        seek(to: CMTimeMake(value: Int64(timeToSeek), timescale: 1))
     }
     
-    func syncScrubber() {
-        guard let playerDuration = videoNode.currentItem?.duration else { return }
+    public func seek(to time: CMTime) {
+        seekSmoothlyToTime(newChaseTime: time)
+    }
+    
+    public func stepByFrame(in direction: Direction) {
+        let frameRate = preferredFrameRate
         
-        if CMTIME_IS_INVALID(playerDuration) {
-            (sliderNode.view as? UISlider)?.minimumValue = 0.0
-            return
-        }
+        let time = videoNode.player?.currentItem?.currentTime() ?? CMTime.zero
+        let seconds = Double(1) / Double(frameRate)
+        let timescale = Double(seconds) / Double(time.timescale) < 1 ? 600 : time.timescale
+        let oneFrame = CMTime(seconds: seconds, preferredTimescale: timescale)
+        let next = direction == .forward
+            ? CMTimeAdd(time, oneFrame)
+            : CMTimeSubtract(time, oneFrame)
         
-        let duration: Double = CMTimeGetSeconds(playerDuration)
-        if duration.isFinite {
-            guard let minValue = (sliderNode.view as? UISlider)?.minimumValue else { return }
-            guard let maxValue = (sliderNode.view as? UISlider)?.maximumValue else { return }
-            let time: Double = CMTimeGetSeconds(videoNode.player?.currentTime() ?? CMTime(seconds: 0, preferredTimescale: CMTimeScale(1)))
-            let up = (maxValue - minValue) * Float(time)
-            let down = Float(duration) + minValue
-            (sliderNode.view as? UISlider)?.value = up / down
-        }
+        seekSmoothlyToTime(newChaseTime: next)
     }
     
-    @objc private func beginScrubbing() {
-        mRestoreAfterScrubbingRate = videoNode.player?.rate ?? 0
-        videoNode.player?.rate = 0.0
-        self.removePlayerTimeObserver()
-    }
-    
-    @objc private func scrub(_ sender: AnyObject) {
-        if (sender is UISlider) && !isSeeking {
-            isSeeking = true
-            let slider = sender
-            guard let playerDuration = videoNode.currentItem?.duration else { return }
+    private func seekSmoothlyToTime(newChaseTime: CMTime) {
+        if CMTimeCompare(newChaseTime, chaseTime) != 0 {
+            chaseTime = newChaseTime
             
-            if CMTIME_IS_INVALID(playerDuration) { return }
-            
-            let duration: Double = CMTimeGetSeconds(playerDuration)
-            if duration.isFinite {
-                let minValue: Float = slider.minimumValue
-                let maxValue: Float = slider.maximumValue
-                let value: Float = slider.value
-                let time = (duration * Double((value - minValue) / (maxValue - minValue)))
-                weak var weakSelf = self
-                videoNode.player?.seek(to: CMTimeMakeWithSeconds(time, preferredTimescale: Int32(NSEC_PER_SEC)), completionHandler: {(finished: Bool) -> Void in
-                    DispatchQueue.main.async(execute: {() -> Void in
-                        weakSelf?.isSeeking = false
-                    })
-                })
+            if !isSeekInProgress {
+                trySeekToChaseTime()
             }
         }
     }
     
-    @objc private func endScrubbing() {
-        guard observer == nil else { return }
+    private func trySeekToChaseTime() {
+        guard videoNode.player?.status == .readyToPlay else { return }
+        actuallySeekToTime()
+    }
+    
+    private func actuallySeekToTime() {
+        isSeekInProgress = true
+        let seekTimeInProgress = chaseTime
         
-        if mRestoreAfterScrubbingRate != 0.0 {
-            videoNode.player?.rate = mRestoreAfterScrubbingRate
-            mRestoreAfterScrubbingRate = 0.0
-            videoNode.play()
-        }
-        
-        guard let playerDuration = videoNode.currentItem?.duration else { return }
-        if CMTIME_IS_INVALID(playerDuration) { return }
-        
-        let duration: Double = CMTimeGetSeconds(playerDuration)
-        if duration.isFinite {
-            let width: CGFloat = sliderNode.bounds.width
-            let tolerance: Double = 0.5 * duration / Double(width)
+        videoNode.player?.seek(to: seekTimeInProgress, toleranceBefore: CMTime.zero, toleranceAfter: CMTime.zero) { [weak self] _ in
+            guard let `self` = self else { return }
             
-            weak var weakSelf = self
-            observer = videoNode.player?.addPeriodicTimeObserver(forInterval: CMTimeMakeWithSeconds(tolerance, preferredTimescale: Int32(NSEC_PER_SEC)), queue: nil, using: {(time: CMTime) -> Void in
-                weakSelf?.syncScrubber()
-            }) as AnyObject?
+            if CMTimeCompare(seekTimeInProgress, self.chaseTime) == 0 {
+                self.isSeekInProgress = false
+            } else {
+                self.trySeekToChaseTime()
+            }
         }
     }
     
-    private func isScrubbing() -> Bool {
-        return mRestoreAfterScrubbingRate != 0.0
-    }
-    
-    func enableScrubber() {
-        (videoNode.view as? UISlider)?.isEnabled = true
-    }
-    
-    func disableScrubber() {
-        (videoNode.view as? UISlider)?.isEnabled = false
+    private func addObserver() {
+        guard let duration = videoNode.player?.currentItem?.duration.seconds else { return }
+        self.observer = videoNode.player?.addPeriodicTimeObserver(forInterval: CMTime(seconds: 00.1, preferredTimescale: CMTimeScale(NSEC_PER_SEC)), queue: DispatchQueue.main, using: { [weak self] (time) in
+            (self?.sliderNode.view as? UISlider)?.value = Float(time.seconds / duration)
+        })
     }
 }
 
@@ -255,7 +214,7 @@ extension VideoNode : ASVideoNodeDelegate {
             toggleButtonNode.isHidden = false
         case .readyToPlay:
             toggleButtonNode.isHidden = true
-            initScrubberTimer()
+            addObserver()
         default:
             toggleButtonNode.isHidden = true
         }
