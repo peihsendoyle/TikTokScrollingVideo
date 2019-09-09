@@ -14,6 +14,7 @@
 		042C06D32320F2E8000D6E6C /* InfoNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 042C06D22320F2E8000D6E6C /* InfoNode.swift */; };
 		042C06D52320F303000D6E6C /* ActionNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 042C06D42320F303000D6E6C /* ActionNode.swift */; };
 		042C06D72320F325000D6E6C /* VideoNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 042C06D62320F325000D6E6C /* VideoNode.swift */; };
+		04B3467E23263AFD00E48A7D /* LoadingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04B3467D23263AFD00E48A7D /* LoadingCell.swift */; };
 		04C6B4CE2325FCEB004AB1D2 /* CommentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C6B4CC2325FCEB004AB1D2 /* CommentCell.swift */; };
 		04C6B4CF2325FCEB004AB1D2 /* CommentsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C6B4CD2325FCEB004AB1D2 /* CommentsViewController.swift */; };
 		04C6B4E02325FCF8004AB1D2 /* SPStorkHaptic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C6B4D12325FCF8004AB1D2 /* SPStorkHaptic.swift */; };
@@ -48,6 +49,7 @@
 		042C06D22320F2E8000D6E6C /* InfoNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoNode.swift; sourceTree = "<group>"; };
 		042C06D42320F303000D6E6C /* ActionNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionNode.swift; sourceTree = "<group>"; };
 		042C06D62320F325000D6E6C /* VideoNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoNode.swift; sourceTree = "<group>"; };
+		04B3467D23263AFD00E48A7D /* LoadingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingCell.swift; sourceTree = "<group>"; };
 		04C6B4CC2325FCEB004AB1D2 /* CommentCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentCell.swift; sourceTree = "<group>"; };
 		04C6B4CD2325FCEB004AB1D2 /* CommentsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentsViewController.swift; sourceTree = "<group>"; };
 		04C6B4D12325FCF8004AB1D2 /* SPStorkHaptic.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SPStorkHaptic.swift; sourceTree = "<group>"; };
@@ -150,6 +152,7 @@
 			isa = PBXGroup;
 			children = (
 				04C6B4CC2325FCEB004AB1D2 /* CommentCell.swift */,
+				04B3467D23263AFD00E48A7D /* LoadingCell.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -374,6 +377,7 @@
 				042C06CB2320B3B9000D6E6C /* Review.swift in Sources */,
 				04C6B4F323262118004AB1D2 /* CommentActionNode.swift in Sources */,
 				04C6B4E12325FCF8004AB1D2 /* SPStorkCloseButton.swift in Sources */,
+				04B3467E23263AFD00E48A7D /* LoadingCell.swift in Sources */,
 				04C6B4CE2325FCEB004AB1D2 /* CommentCell.swift in Sources */,
 				04CBCF102320AE9800FF07FF /* AppDelegate.swift in Sources */,
 				042C06D72320F325000D6E6C /* VideoNode.swift in Sources */,

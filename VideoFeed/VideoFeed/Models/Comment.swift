@@ -9,6 +9,7 @@
 import Foundation
 
 class Comment {
+    var id : String?
     var user: User?
     var content : String?
     var date : String?
@@ -16,7 +17,8 @@ class Comment {
     
     var subcomments: [Comment]?
     
-    init(user: User, content: String, date: String, likeCount: String, subcomments: [Comment]) {
+    init(id: String, user: User, content: String, date: String, likeCount: String, subcomments: [Comment]) {
+        self.id = id
         self.user = user
         self.content = content
         self.date = date
