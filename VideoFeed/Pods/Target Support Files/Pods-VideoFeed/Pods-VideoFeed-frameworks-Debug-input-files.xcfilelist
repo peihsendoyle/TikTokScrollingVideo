@@ -1,0 +1,6 @@
+${PODS_ROOT}/Target Support Files/Pods-VideoFeed/Pods-VideoFeed-frameworks.sh
+${BUILT_PRODUCTS_DIR}/PINCache/PINCache.framework
+${BUILT_PRODUCTS_DIR}/PINOperation/PINOperation.framework
+${BUILT_PRODUCTS_DIR}/PINRemoteImage/PINRemoteImage.framework
+${BUILT_PRODUCTS_DIR}/SPFakeBar/SPFakeBar.framework
+${BUILT_PRODUCTS_DIR}/Texture/AsyncDisplayKit.framework

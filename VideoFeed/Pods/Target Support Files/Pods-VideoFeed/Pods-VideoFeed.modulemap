@@ -1,0 +1,6 @@
+framework module Pods_VideoFeed {
+  umbrella header "Pods-VideoFeed-umbrella.h"
+
+  export *
+  module * { export * }
+}

@@ -1,0 +1,6 @@
+framework module SPFakeBar {
+  umbrella header "SPFakeBar-umbrella.h"
+
+  export *
+  module * { export * }
+}
