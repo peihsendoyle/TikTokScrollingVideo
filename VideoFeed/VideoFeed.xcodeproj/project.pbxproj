@@ -173,8 +173,7 @@
 				04C6B4DE2325FCF8004AB1D2 /* SPStorkCloseView.swift */,
 				04C6B4DF2325FCF8004AB1D2 /* SPStorkDismissingAnimationController.swift */,
 			);
-			name = SPStorkController;
-			path = ../../../../../Downloads/SPStorkController;
+			path = SPStorkController;
 			sourceTree = "<group>";
 		};
 		04C6B4F12325FD16004AB1D2 /* Video */ = {

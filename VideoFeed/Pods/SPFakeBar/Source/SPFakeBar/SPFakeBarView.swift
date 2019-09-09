@@ -126,8 +126,6 @@ open class SPFakeBarView: UIView {
             }
         }
         
-        self.backgroundColor = .white
-        
         let effect = UIBlurEffect(style: isDarkMode ? .dark : .extraLight)
         self.blurView = UIVisualEffectView.init(effect: effect)
         self.addSubview(self.blurView)

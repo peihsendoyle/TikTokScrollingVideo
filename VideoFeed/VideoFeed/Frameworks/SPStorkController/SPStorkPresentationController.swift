@@ -45,7 +45,7 @@ class SPStorkPresentationController: UIPresentationController, UIGestureRecogniz
     private var indicatorView = SPStorkIndicatorView()
     private var gradeView: UIView = UIView()
     private let snapshotViewContainer = UIView()
-//    private var snapshotView: UIView?
+    private var snapshotView: UIView?
 //    private let backgroundView = UIView()
     
     private var snapshotViewTopConstraint: NSLayoutConstraint?
@@ -220,12 +220,12 @@ class SPStorkPresentationController: UIPresentationController, UIGestureRecogniz
     
     override func presentationTransitionDidEnd(_ completed: Bool) {
         super.presentationTransitionDidEnd(completed)
-        guard let containerView = containerView else { return }
+//        guard let containerView = containerView else { return }
         self.updateSnapshot()
         self.presentedViewController.view.frame = self.frameOfPresentedViewInContainerView
-        self.snapshotViewContainer.transform = .identity
-        self.snapshotViewContainer.translatesAutoresizingMaskIntoConstraints = false
-        self.snapshotViewContainer.centerXAnchor.constraint(equalTo: containerView.centerXAnchor).isActive = true
+//        self.snapshotViewContainer.transform = .identity
+//        self.snapshotViewContainer.translatesAutoresizingMaskIntoConstraints = false
+//        self.snapshotViewContainer.centerXAnchor.constraint(equalTo: containerView.centerXAnchor).isActive = true
 //        self.updateSnapshotAspectRatio()
         
         if self.tapAroundToDismissEnabled {
@@ -257,7 +257,7 @@ class SPStorkPresentationController: UIPresentationController, UIGestureRecogniz
 //            .scaledBy(x: scaleForPresentingView, y: scaleForPresentingView)
 //            .translatedBy(x: 0, y: initialFrame.height / 2)
         
-//        self.snapshotViewTopConstraint?.isActive = false
+        self.snapshotViewTopConstraint?.isActive = false
         self.snapshotViewWidthConstraint?.isActive = false
         self.snapshotViewAspectRatioConstraint?.isActive = false
         self.snapshotViewContainer.translatesAutoresizingMaskIntoConstraints = true
@@ -313,8 +313,8 @@ class SPStorkPresentationController: UIPresentationController, UIGestureRecogniz
         guard let containerView = containerView else { return }
         
 //        self.backgroundView.removeFromSuperview()
-//        self.snapshotView?.removeFromSuperview()
-//        self.snapshotViewContainer.removeFromSuperview()
+        self.snapshotView?.removeFromSuperview()
+        self.snapshotViewContainer.removeFromSuperview()
         self.indicatorView.removeFromSuperview()
         self.closeButton.removeFromSuperview()
         
@@ -541,20 +541,20 @@ extension SPStorkPresentationController {
     }
     
     private func updateSnapshot() {
-//        guard let currentSnapshotView = presentingViewController.view.snapshotView(afterScreenUpdates: true) else { return }
-//        self.snapshotView?.removeFromSuperview()
-//        self.snapshotViewContainer.addSubview(currentSnapshotView)
-//        self.constraints(view: currentSnapshotView, to: self.snapshotViewContainer)
-//        self.snapshotView = currentSnapshotView
-//        self.snapshotView?.layer.cornerRadius = self.cornerRadius
-//        self.snapshotView?.layer.masksToBounds = true
-//        if #available(iOS 11.0, *) {
-//            snapshotView?.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
-//        }
-//        self.gradeView.removeFromSuperview()
+        guard let currentSnapshotView = presentingViewController.view.snapshotView(afterScreenUpdates: true) else { return }
+        self.snapshotView?.removeFromSuperview()
+        self.snapshotViewContainer.addSubview(currentSnapshotView)
+        self.constraints(view: currentSnapshotView, to: self.snapshotViewContainer)
+        self.snapshotView = currentSnapshotView
+        self.snapshotView?.layer.cornerRadius = self.cornerRadius
+        self.snapshotView?.layer.masksToBounds = true
+        if #available(iOS 11.0, *) {
+            snapshotView?.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
+        }
+        self.gradeView.removeFromSuperview()
 //        self.gradeView.backgroundColor = UIColor.black
-//        self.snapshotView!.addSubview(self.gradeView)
-//        self.constraints(view: self.gradeView, to: self.snapshotView!)
+        self.snapshotView!.addSubview(self.gradeView)
+        self.constraints(view: self.gradeView, to: self.snapshotView!)
     }
     
     private func updateSnapshotAspectRatio() {
