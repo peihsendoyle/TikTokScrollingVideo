@@ -193,7 +193,7 @@ extension VideoNode {
     
     private func addObserver() {
         guard let duration = videoNode.player?.currentItem?.duration.seconds else { return }
-        self.observer = videoNode.player?.addPeriodicTimeObserver(forInterval: CMTime(seconds: 00.1, preferredTimescale: CMTimeScale(NSEC_PER_SEC)), queue: DispatchQueue.main, using: { [weak self] (time) in
+        self.observer = videoNode.player?.addPeriodicTimeObserver(forInterval: CMTime(seconds: 0.01, preferredTimescale: CMTimeScale(NSEC_PER_SEC)), queue: DispatchQueue.main, using: { [weak self] (time) in
             (self?.sliderNode.view as? UISlider)?.value = Float(time.seconds / duration)
         })
     }

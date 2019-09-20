@@ -8,7 +8,13 @@
 
 import AsyncDisplayKit
 
+protocol CommentActionNodeDelegate : class {
+    func didTapTextField()
+}
+
 class CommentActionNode : ASDisplayNode {
+    
+    weak var delegate : CommentActionNodeDelegate?
     
     private var user : User?
     
@@ -53,6 +59,7 @@ class CommentActionNode : ASDisplayNode {
         
         backgroundColor = .white
         configureImageNode()
+        configureTextFieldButtonNode()
         
         automaticallyManagesSubnodes = true
     }
@@ -69,5 +76,13 @@ extension CommentActionNode {
     private func configureImageNode() {
         guard let urlString = user?.avatarUrl, let url = URL(string: urlString) else { return }
         imageNode.url = url
+    }
+    
+    private func configureTextFieldButtonNode() {
+        textFieldButtonNode.addTarget(self, action: #selector(tapTextField), forControlEvents: .touchUpInside)
+    }
+    
+    @objc private func tapTextField() {
+        delegate?.didTapTextField()
     }
 }

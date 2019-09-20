@@ -50,6 +50,15 @@ class CommentCell : ASCellNode {
         return node
     }()
     
+    private let contentImageNode : ASNetworkImageNode = {
+        let node = ASNetworkImageNode()
+        node.contentMode = .scaleAspectFill
+        node.cornerRadius = 4.0
+        node.style.preferredSize = CGSize(width: 60, height: 60)
+        
+        return node
+    }()
+    
     private let contentNode : ASTextNode = {
         let node = ASTextNode()
         node.maximumNumberOfLines = 0
@@ -87,6 +96,7 @@ class CommentCell : ASCellNode {
         configureDateNode()
         configureNameNode()
         configureLevelNode()
+        configureContentImageNode()
         configureContentNode()
         configureLikeButtonNode()
         configureReplyButtonNode()
@@ -108,7 +118,14 @@ extension CommentCell {
             contentNode.style.width = ASDimension(unit: .points, value: UIScreen.main.bounds.size.width - 36 - 10 - 32)
         }
         
-        let commentStack = ASStackLayoutSpec(direction: .vertical, spacing: 8, justifyContent: .start, alignItems: .stretch, children: [infoStack, contentNode, replyButtonNode])
+        var commentStack : ASStackLayoutSpec!
+        
+        if comment?.imageUrl != nil {
+            commentStack = ASStackLayoutSpec(direction: .vertical, spacing: 8, justifyContent: .start, alignItems: .stretch, children: [infoStack, contentImageNode, contentNode, replyButtonNode])
+        } else {
+            commentStack = ASStackLayoutSpec(direction: .vertical, spacing: 8, justifyContent: .start, alignItems: .stretch, children: [infoStack, contentNode, replyButtonNode])
+        }
+
         let fullStack = ASStackLayoutSpec(direction: .horizontal, spacing: 10, justifyContent: .start, alignItems: .start, children: [imageNode, commentStack])
         
         if isSubcomment {
@@ -148,6 +165,11 @@ extension CommentCell {
     
     private func configureLikeButtonNode() {
         likeButtonNode.setTitle(comment?.likeCount ?? "0", with: UIFont.systemFont(ofSize: 12, weight: .regular), with: UIColor(red: 74/255, green: 74/255, blue: 74/255, alpha: 1.0), for: .normal)
+    }
+    
+    private func configureContentImageNode() {
+        guard let imageUrlString = comment?.imageUrl, let url = URL(string: imageUrlString) else { return }
+        contentImageNode.url = url
     }
     
     private func configureContentNode() {

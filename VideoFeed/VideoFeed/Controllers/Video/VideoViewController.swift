@@ -127,7 +127,7 @@ class VideoViewController: UIViewController {
         }
     }
     
-    private func presentCommentsVC(onDismiss: (() -> Void)?) {
+    private func presentCommentsVC() {
         let controller = CommentsViewController()
         let transitionDelegate = SPStorkTransitioningDelegate()
         transitionDelegate.showCloseButton = false
@@ -137,7 +137,6 @@ class VideoViewController: UIViewController {
         controller.transitioningDelegate = transitionDelegate
         controller.modalPresentationStyle = .custom
         controller.modalPresentationCapturesStatusBarAppearance = true
-        controller.onDismiss = onDismiss
         self.present(controller, animated: true, completion: nil)
     }
 }
@@ -157,17 +156,11 @@ extension VideoViewController : ASCollectionDataSource {
             let cellNode = VideoCell(review: review)
             
             cellNode.onTapTextField = { [weak self] in
-                cellNode.videoNode.videoNode.pause()
-                self?.presentCommentsVC(onDismiss: {
-                    cellNode.videoNode.videoNode.play()
-                })
+                self?.presentCommentsVC()
             }
             
             cellNode.onTapCommentButton = { [weak self] in
-                cellNode.videoNode.videoNode.pause()
-                self?.presentCommentsVC(onDismiss: {
-                    cellNode.videoNode.videoNode.play()
-                })
+                self?.presentCommentsVC()
             }
             
             return cellNode

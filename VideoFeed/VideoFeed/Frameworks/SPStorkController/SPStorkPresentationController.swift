@@ -541,7 +541,8 @@ extension SPStorkPresentationController {
     }
     
     private func updateSnapshot() {
-        guard let currentSnapshotView = presentingViewController.view.snapshotView(afterScreenUpdates: true) else { return }
+        let currentSnapshotView = UIView()
+        currentSnapshotView.backgroundColor = .clear
         self.snapshotView?.removeFromSuperview()
         self.snapshotViewContainer.addSubview(currentSnapshotView)
         self.constraints(view: currentSnapshotView, to: self.snapshotViewContainer)
