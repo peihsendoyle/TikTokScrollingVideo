@@ -28,11 +28,13 @@ final class SPStorkPresentingAnimationController: NSObject, UIViewControllerAnim
         guard let presentedViewController = transitionContext.viewController(forKey: .to) else { return }
         
         let containerView = transitionContext.containerView
+        containerView.frame.size = presentedViewController.view.bounds.size
+        containerView.frame.origin.y = containerView.bounds.height
         containerView.addSubview(presentedViewController.view)
 
         let finalFrameForPresentedView = transitionContext.finalFrame(for: presentedViewController)
         presentedViewController.view.frame = finalFrameForPresentedView
-        presentedViewController.view.frame.origin.y = containerView.bounds.height
+        presentedViewController.view.frame.origin.y = UIScreen.main.bounds.size.height
         
         UIView.animate(
             withDuration: transitionDuration(using: transitionContext),

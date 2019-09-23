@@ -128,9 +128,11 @@ class VideoViewController: UIViewController {
     }
     
     private func presentCommentsVC() {
-        let controller = CommentsViewController()
+        let controller = UINavigationController(rootViewController: CommentsViewController())
+        controller.setNavigationBarHidden(true, animated: true)
         let transitionDelegate = SPStorkTransitioningDelegate()
         transitionDelegate.showCloseButton = false
+        transitionDelegate.translateForDismiss = 100
         transitionDelegate.customHeight = UIScreen.main.bounds.size.height / 2
         transitionDelegate.showIndicator = false
         transitionDelegate.hapticMoments = [.willPresent, .willDismiss]
